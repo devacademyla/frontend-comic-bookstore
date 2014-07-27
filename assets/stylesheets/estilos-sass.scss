@@ -1,4 +1,5 @@
 @import 'bourbon/bourbon';
+@import 'neat/neat';
 
 $gris: #ecf0f1;
 $azul-oscuro: #34495e;
@@ -9,17 +10,21 @@ $naranja: #e67e22;
 $small: 480px;
 $medium: 640px;
 
+//breakpoints
+$mobile: new-breakpoint(max-width $small);
+$tablet: new-breakpoint(max-width $medium);
+
+
 /* Resetear los márgenes de los elementos */
 * { margin: 0; }
 
 /* Dandole estilos a los elementos principales del html */
 html { background-color: $gris; }
 body {
+  @include outer-container; // max-width predeterminado = 68em;
   background-color: $azul-oscuro;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
-  margin: 0 auto;
-  max-width: 1080px;
 }
 button {
   @include transition( all 0.5s ease );
@@ -34,6 +39,9 @@ button {
     background-color: $verde-oscuro;
     cursor: pointer;
   }
+}
+footer {
+  @include span-columns(12);
 }
 h1 {
   font-size: 2em;
@@ -50,9 +58,9 @@ header, footer {
 }
 nav {
   @include box-sizing(border-box);
+  @include span-columns(2);
   float: left;
   padding: 1em 2em;
-  width: 20%;
 }
 nav ul {
   padding: 0;
@@ -77,8 +85,9 @@ nav ul {
   vertical-align: middle;
 }
 .productos {
+  @include span-columns(10);
+  @include omega();
   background-color: white;
-  margin-left: 20%;
   padding: 1em 2em;
 }
 .producto {
@@ -95,13 +104,13 @@ nav ul {
 .logo { width: 70px; }
 
 /* Estilos cuando el ancho es menor igual que 640px */
-@media screen and (max-width: $medium){
+@include media($tablet){
   nav { display: none; }
-  .productos { margin-left: 0; }
+  .productos { @include span-columns(12); }
 }
 
 /* Estilos cuando el ancho es menor igual que 480px */
-@media screen and (max-width: $small) {
+@include media($mobile) {
   button {
     display: block;
     margin: 0 auto;
